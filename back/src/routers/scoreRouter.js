@@ -96,20 +96,14 @@ const scoreRouter = Router();
  *                          example: nickname
  *                        location:
  *                          type: string
- *                          description: 입력받을 위치 
- *                          
-*/
+ *                          description: 입력받을 위치
+ *
+ */
 scoreRouter.post(
   "/scores",
   [
-    body("nickname")
-      .exists()
-      .withMessage("닉네임을 입력해주세요.")
-      .bail(),
-    body("score")
-      .exists()
-      .withMessage("점수를 입력해주세요.")
-      .bail(),
+    body("nickname").exists().withMessage("닉네임을 입력해주세요.").bail(),
+    body("score").exists().withMessage("점수를 입력해주세요.").bail(),
     validate,
   ],
   async (req, res, next) => {
@@ -124,7 +118,7 @@ scoreRouter.post(
     };
 
     return res.status(status.STATUS_201_CREATED).json(body);
-  } 
+  }
 );
 
 /** query: scores/userId?userId={id} */
@@ -172,7 +166,7 @@ scoreRouter.post(
  *                      type: number
  *                      description: 점수
  *                      example: 1
- *                    
+ *
  *      400:
  *        description: 점수 & 랭크 조회 오류
  *        content:
@@ -197,8 +191,8 @@ scoreRouter.post(
  *                    detail:
  *                      type: string
  *                      description: id가 존재하지 않습니다.
- *                          
-*/
+ *
+ */
 scoreRouter.get(
   "/scores/userId",
   [
@@ -218,7 +212,7 @@ scoreRouter.get(
     if (userRank === undefined) {
       const body = {
         success: false,
-        detail: "id가 존재하지 않습니다."
+        detail: "id가 존재하지 않습니다.",
       };
 
       return res.status(status.STATUS_400_BADREQUEST).json(body);
@@ -270,21 +264,17 @@ scoreRouter.get(
  *                      type: number
  *                      description: 랭크
  *                      example: 1
- *                                       
-*/
-scoreRouter.get(
-  "/scores",
-  async (req, res, next) => {
-    const rankList = await ScoreService.getRankList();
+ *
+ */
+scoreRouter.get("/scores", async (req, res, next) => {
+  const rankList = await ScoreService.getRankList();
 
-    const body = {
-      success: true,
-      payload: rankList,
-    };
+  const body = {
+    success: true,
+    payload: rankList,
+  };
 
-    return res.status(status.STATUS_200_OK).json(body);
-  }
-);
-
+  return res.status(status.STATUS_200_OK).json(body);
+});
 
 export { scoreRouter };

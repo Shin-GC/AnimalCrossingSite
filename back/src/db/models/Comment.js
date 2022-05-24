@@ -20,6 +20,23 @@ class Comment {
     const list = await CommentModel.find(
       { villager, location },
       { _id: 0, __v: 0, id: 0, location: 0, updatedAt: 0 }
+    )
+      .sort({ createdAt: -1 })
+      .lean();
+    return list;
+  }
+  /** 주민 없이 댓글을 검색하는 함수
+   *
+   * @param {String} location - 댓글을 검색할 위치
+   * @returns {Object}
+   */
+  static async honorList({ location }) {
+    const list = await CommentModel.find(
+      { location },
+      { _id: 0, __v: 0, id: 0, location: 0, updatedAt: 0 }
+    )
+      .sort({ createdAt: -1 })
+      .lean();
     );
     return list;
   }
