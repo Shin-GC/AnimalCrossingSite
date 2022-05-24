@@ -8,10 +8,8 @@ import { StatContext } from "../../context/StatContext";
 
 const Stat = () => {
   const { isDesc, setIsDesc } = useContext(StatContext); // 뒤로가기 버튼에서 다시 false로 세팅해주면 될거같아용..
-
-  useEffect(() => {
-    console.log("isDesc=====>", isDesc);
-  }, []);
+  console.log(isDesc);
+  useEffect(() => {}, [isDesc]);
   return (
     <div className="stat">
       <div
