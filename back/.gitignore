@@ -3,6 +3,7 @@ back/log
 logs
 node_modules
 ~$*
+~$*
 dump.rdb
 uploads
 

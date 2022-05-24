@@ -6,7 +6,7 @@ class Comment {
    * @param {Object} newComment - 생성할 주민 댓글 데이터가 담긴 오브젝트
    * @returns {Object}
    */
-  static async create({ newComment }) {
+  static async create(newComment) {
     const createNewComment = await CommentModel.create(newComment);
     return createNewComment;
   }
@@ -37,6 +37,7 @@ class Comment {
     )
       .sort({ createdAt: -1 })
       .lean();
+    );
     return list;
   }
 }

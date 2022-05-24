@@ -6,19 +6,6 @@ import { RequestError } from "../utils/errors.js";
 
 const router = Router();
 
-/** ","로 구분된 쿼리 스트링을 처리해 배열로 바꿔줍니다.
- *
- * @arg {string?} queryStr - 생 쿼리 문자열입니다.
- * @return {string[]} values - 쿼리값의 배열입니다.
- */
-const parseArrayQuery = (queryStr) => {
-  if (!queryStr) {
-    return [];
-  } else {
-    return queryStr.split(",");
-  }
-};
-
 /**
  * @swagger
  * tags:
@@ -142,7 +129,7 @@ router.get("/characters/search/enums/:field", async (req, res, next) => {
  */
 /**
  * @swagger
- * /characters?birthday=:
+ * /characters?birthday=mm-dd [ &fields=field1,field2,... ]:
  *  get:
  *    summary: "(DEPRECATED) 생일인 캐릭터들을 반환합니다."
  *    description: |
@@ -213,19 +200,12 @@ router.get("/characters", async (req, res, next) => {
 /** query: fields=name_ko,name_en */
 /**
  * @swagger
- * /characters/{id}:
+ * /characters/:id [ &fields=field1,field2,... ]:
  *  get:
  *    summary: id와 일치하는 캐릭터를 반환합니다.
  *    description: 한 캐릭터의 데이터를 전부 또는 일부 반환합니다.
  *    tags: [Characters]
  *    parameters:
- *      - in: path
- *        name: id
- *        schema:
- *          type: string
- *        required: true
- *        description: 캐릭터 id는 영문 이름 소문자에서 공백을 제거한 문자열입니다.
- *        example: admiral
  *      - in: query
  *        name: fields
  *        schema:
@@ -268,7 +248,10 @@ router.get("/characters", async (req, res, next) => {
 router.get("/characters/:id", async (req, res, next) => {
   try {
     // 쿼리에 원하는 필드값을 넣을 수 있습니다.
-    let fields = parseArrayQuery(req.query.fields);
+    let fields = [];
+    if (req.query.fields) {
+      fields = req.query.fields.split(",");
+    }
 
     let found = CharacterService.get(req.params.id, fields);
     if (found.errorMessage) {
