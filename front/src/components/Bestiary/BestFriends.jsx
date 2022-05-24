@@ -1,19 +1,12 @@
-import styled, { keyframes } from "styled-components";
-import { useEffect, useState } from "react";
+import styled from "styled-components";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const BestFriends = ({ friends }) => {
-  const [height, setHeight] = useState(0);
-  const [offset, setOffset] = useState(0);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    setHeight(document.getElementById("img-bubble")?.clientHeight);
-    setOffset(document.getElementById("columnWrapper")?.clientWidth / 2);
-  }, [height]);
-
   return (
-    <BestFriendWrapper height={height} offset={offset}>
+    <BestFriendWrapper>
       <LabelBf>최고의 궁합</LabelBf>
       {friends.map((friend, idx) => {
         return (
@@ -37,10 +30,10 @@ const BestFriendWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: calc(${(props) => props.height}px - 10px);
+  height: 414px;
   width: 200px;
   position: absolute;
-  right: calc(50vw - ${(props) => props.offset}px);
+  right: calc(50vw - 500px);
   background-color: rgb(75, 144, 104, 0.5);
 `;
 

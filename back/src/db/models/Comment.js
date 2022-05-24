@@ -37,7 +37,6 @@ class Comment {
     )
       .sort({ createdAt: -1 })
       .lean();
-    );
     return list;
   }
 }

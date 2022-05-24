@@ -6,6 +6,19 @@ import { RequestError } from "../utils/errors.js";
 
 const router = Router();
 
+/** ","로 구분된 쿼리 스트링을 처리해 배열로 바꿔줍니다.
+ *
+ * @arg {string?} queryStr - 생 쿼리 문자열입니다.
+ * @return {string[]} values - 쿼리값의 배열입니다.
+ */
+const parseArrayQuery = (queryStr) => {
+  if (!queryStr) {
+    return [];
+  } else {
+    return queryStr.split(",");
+  }
+};
+
 /**
  * @swagger
  * tags:

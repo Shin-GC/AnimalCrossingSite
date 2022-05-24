@@ -1,7 +1,7 @@
 import React from "react";
 import BackButton from "../common/BackButton";
 import HomeButton from "../common/HomeButton";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import MonthCalendar from "./MonthCalendar";
 
 const Calendar = () => {
@@ -13,7 +13,7 @@ const Calendar = () => {
           <HomeButton />
         </Wrapper>
       </Navigator>
-      <Content style={{ transform: "scale(1.2)" }}>
+      <Content>
         <Tooltip id="toolTip">연도를 변경해 보세요!</Tooltip>
         <MonthCalendar />
       </Content>
@@ -61,10 +61,10 @@ const Wrapper = styled.div`
 `;
 const Tooltip = styled.div`
   width: auto;
-  display: none;
-  position: absolute;
+  opacity: 0;
   font-family: TmoneyRoundWindRegular;
-  top: 270px;
+  cursor: default;
+  user-select: none;
 `;
 
 export default Calendar;

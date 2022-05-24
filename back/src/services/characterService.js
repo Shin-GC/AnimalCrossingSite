@@ -2,6 +2,7 @@ import _ from "underscore";
 
 import { Character } from "../db/index.js";
 import * as status from "../utils/status.js";
+import { RequestError } from "../utils/errors.js";
 
 /**
  * @typedef {{
