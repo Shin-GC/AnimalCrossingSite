@@ -4,9 +4,9 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install --silent
+RUN npm install --legacy-peer-deps
 
-COPY ./build .
+COPY ./build ./build
 
 EXPOSE 3000
 
